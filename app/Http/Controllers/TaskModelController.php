@@ -106,4 +106,11 @@ class TaskModelController extends Controller
 
 
     }
+    public function search(Request $request)
+    {
+
+        $tasks = TaskModel::where('title', '=', "{$request->search}")
+            ->orwhere('title', 'LIKE', "%{$request->search}%")->paginate(3);
+        return response()->json($tasks ,200);
+    }
 }
